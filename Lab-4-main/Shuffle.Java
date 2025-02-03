@@ -1,4 +1,5 @@
 import java.util.ArrayUtils;
+import java.util.Arrays;
 public class Shuffle {
     public static int[] Shuffle(int[] n){
         int[] copy = new int[n.length];
@@ -19,6 +20,6 @@ public class Shuffle {
     }
     public static void main(String []args) {
         System.out.println('hello');
-        System.out.println(Shuffle([23,2,34,3,5]));
+        System.out.println(Arrays.toString(Shuffle([23,2,34,3,5])));
     }
 }
