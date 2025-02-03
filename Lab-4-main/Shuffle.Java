@@ -1,15 +1,14 @@
-import java.util.Arrays;
 import java.util.ArrayUtils;
 public class Shuffle {
     public static int[] Shuffle(int[] n){
-        int[] copy = [];
+        int[] copy = new int[n.length];
         int length = n.length;
         int i;
 
-        while (length){
-            i = Math.floor(Math.random() * array.length);
+        while (length > 0){
+            i = (int)(Math.random() * array.length);
 
-            if (Arrays.asList(n).contains(i)) {
+            if (n[i] != undefined) {
                 copy.push(n[i]);
                 ArrayUtils.removeElement(n,n[i]);
                 length--;
@@ -19,6 +18,6 @@ public class Shuffle {
         return copy;
     }
     public static void main(String []args) {
-
+        Shuffle([23,2,34,3,5])
     }
 }
