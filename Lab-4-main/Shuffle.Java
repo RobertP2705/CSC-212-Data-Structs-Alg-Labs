@@ -18,7 +18,7 @@ public class Shuffle {
         return copy;
     }
     public static void main(String []args) {
-        System.out.println('hello')
-        System.out.println(Shuffle([23,2,34,3,5]))
+        System.out.println('hello');
+        System.out.println(Shuffle([23,2,34,3,5]));
     }
 }
