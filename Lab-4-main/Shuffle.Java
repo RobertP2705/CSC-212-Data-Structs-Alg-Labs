@@ -55,7 +55,7 @@ public class Shuffle {
         return n;
     }
     public static void main(String []args) {
-        int[] sizes = {5,10,100,1000};
+        int[] sizes = {5,10,15,20};
         int numTrials = 4;
 
         for (int size : sizes){
