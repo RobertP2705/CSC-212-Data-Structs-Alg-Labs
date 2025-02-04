@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "power",
+            "request": "launch",
+            "mainClass": "power",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_56394639"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_56394639"
+        }
+    ]
+}

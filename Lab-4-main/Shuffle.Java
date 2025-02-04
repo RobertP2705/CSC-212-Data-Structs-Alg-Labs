@@ -1,4 +1,3 @@
-import java.util.ArrayUtils;
 import java.util.Arrays;
 public class Shuffle {
     public static int[] Shuffle(int[] n){
@@ -6,20 +5,19 @@ public class Shuffle {
         int length = n.length;
         int i;
 
-        while (length > 0){
-            i = (int)(Math.random() * array.length);
+        // while (length > 0){
+        //     i = (int)(Math.random() * array.length);
 
-            if (n[i] != undefined) {
-                copy.push(n[i]);
-                ArrayUtils.removeElement(n,n[i]);
-                length--;
-            }
-        }
+        //     if (n[i] != undefined) {
+        //         copy.push(n[i]);
+        //         ArrayUtils.removeElement(n,n[i]);
+        //         length--;
+        //     }
+        // }
 
         return copy;
     }
     public static void main(String []args) {
-        System.out.println('hello');
-        System.out.println(Arrays.toString(Shuffle([23,2,34,3,5])));
+        System.out.println("hello");
     }
 }
