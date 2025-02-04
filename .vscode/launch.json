@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Shuffle",
+            "request": "launch",
+            "mainClass": "Shuffle",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_56394639"
+        },
+        {
+            "type": "java",
             "name": "power",
             "request": "launch",
             "mainClass": "power",
