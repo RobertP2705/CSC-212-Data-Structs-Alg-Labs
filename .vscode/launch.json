@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "boardwalk",
+            "request": "launch",
+            "mainClass": "boardwalk",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_56394639"
+        },
+        {
+            "type": "java",
             "name": "Shuffle",
             "request": "launch",
             "mainClass": "Shuffle",

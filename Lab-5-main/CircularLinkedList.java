@@ -9,7 +9,7 @@ public class CircularLinkedList<T> {
         }
     }
     private Node<T> head;
-    public Node<T> currentNode;
+    private Node<T> currentNode;
     public CircularLinkedList(){
         this.head = null;
         this.currentNode = null;
@@ -29,6 +29,12 @@ public class CircularLinkedList<T> {
             temp.next = newNode;
             newNode.next = this.head;
         }
+    }
+    public T getCurrentNode() {
+        if(this.currentNode != null) {
+            return this.currentNode.data;
+        }
+        return null;
     }
     public void step(){
         if(this.head != null){
