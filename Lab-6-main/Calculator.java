@@ -34,6 +34,6 @@ public class Calculator {
         return stack.pop();
     }
     public static void main(String []args) {
-        evaluate("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3");
+        System.out.println(evaluate("( 3 + 2 ) * 3"));
     }
 }
