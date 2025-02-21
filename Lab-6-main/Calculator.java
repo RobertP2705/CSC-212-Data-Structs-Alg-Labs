@@ -3,7 +3,7 @@ import java.util.Stack;
 
 public class Calculator {
     public static double evaluate(String evaluation){
-        ArrayList<String> result = InfixToPostfix(evaluation);
+        ArrayList<String> result = Shunting.InfixToPostfix(evaluation);
         //https://www.geeksforgeeks.org/evaluation-of-postfix-expression/
         Stack<Double> stack = new Stack<>();
         for (String token : result) {
@@ -34,6 +34,6 @@ public class Calculator {
         return stack.pop();
     }
     public static void main(String []args) {
-        
+        evaluate("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3");
     }
 }
