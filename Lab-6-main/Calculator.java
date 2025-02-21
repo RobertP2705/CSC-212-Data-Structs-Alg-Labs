@@ -3,7 +3,7 @@ import java.util.Stack;
 
 public class Calculator {
     public static double evaluate(String evaluation){
-        ArrayList<String> result = Shunting.InfixToPostfix(evaluation);
+        ArrayList<String> result = Shunting.infixToPostfix(evaluation);
         //https://www.geeksforgeeks.org/evaluation-of-postfix-expression/
         Stack<Double> stack = new Stack<>();
         for (String token : result) {
