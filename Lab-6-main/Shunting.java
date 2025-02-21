@@ -1,7 +1,7 @@
-import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class Shunting {
+public class Shunting{
     private static int getPrecedence(String operator) {
         switch (operator) {
             case "+":
@@ -29,7 +29,7 @@ public class Shunting {
         }
     }
 
-    public static String infixToPostfix(String expression) {
+    public static ArrayList<String> infixToPostfix(String expression) {
         ArrayList<String> output = new ArrayList<>();
         Stack<String> stack = new Stack<>();
         
