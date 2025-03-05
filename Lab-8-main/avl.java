@@ -1,8 +1,13 @@
+
+
+
 public class avl {
     /* Node Class and AVL tree implementation
     Inspired by:
-    https://github.com/williamfiset/Algorithms/blob/master/src/main/java/com/williamfiset/algorithms/datastructures/balancedtree/AVLTreeRecursive.java */
-    public class Node {
+    https://github.com/williamfiset/Algorithms/blob/master/src/main/java/com/williamfiset/algorithms/datastructures/balancedtree/AVLTreeRecursive.java 
+    All printing methods for debugging are from the github repository above
+    */
+    public class Node implements PrintableNode{
         public int bf;
         public int value;
         public int height;
@@ -10,6 +15,20 @@ public class avl {
 
         public Node(int value) {
             this.value = value;
+        }
+        @Override
+        public PrintableNode getLeft() {
+          return this.left;
+        }
+    
+        @Override
+        public PrintableNode getRight() {
+          return this.right;
+        }
+    
+        @Override
+        public String getText() {
+          return Integer.toString(this.value);
         }
     }
 
@@ -30,7 +49,7 @@ public class avl {
     }
 
     public void insert(int value) {
-        insert(root, value);
+        root = insert(root, value);
     }
     private Node insert(Node node, int value) {
         if (node == null) return new Node(value);
@@ -156,5 +175,22 @@ public class avl {
             node = node.right;
         }
         return node.value;
+    }
+
+    @Override
+    public String toString() {
+        return TreePrinter.getTreeDisplay(root);
+    }
+
+    public String inOrderSerialize(){
+        return inOrderSerialize(root);
+    }
+    private String inOrderSerialize(Node node){
+        if(node == null){
+            return "X, ";
+        }
+        String leftSerial = inOrderSerialize(node.left);
+        String rightSerial = inOrderSerialize(node.right);
+        return node.value + ", " + leftSerial + rightSerial;
     }
 }

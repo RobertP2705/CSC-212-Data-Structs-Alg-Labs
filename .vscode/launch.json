@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "driver",
+            "request": "launch",
+            "mainClass": "driver",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_56394639"
+        },
+        {
+            "type": "java",
             "name": "Calculator",
             "request": "launch",
             "mainClass": "Calculator",
