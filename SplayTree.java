@@ -1,7 +1,8 @@
 public class SplayTree<T extends Comparable<T>>{
     public class Node implements PrintableNode{
         public T value;
-        public Node left, right;
+        public Node left = null;
+        public Node right = null;
         public Node(T value) {
             this.value = value;
         }
@@ -44,7 +45,7 @@ public class SplayTree<T extends Comparable<T>>{
         return node;
     }
     private Node findParent(Node p){
-      return findParent(this.root,p)
+      return findParent(this.root,p);
     }
     private Node findParent(Node parent, Node p){
       if (parent == null || parent == p) {
@@ -52,7 +53,7 @@ public class SplayTree<T extends Comparable<T>>{
       }
       Node left = null;
       if(parent.left == p){
-        return parent
+        return parent;
       }
       else if(parent.left != null){
         left = findParent(parent.left,p);
@@ -96,6 +97,11 @@ public class SplayTree<T extends Comparable<T>>{
           rotate(p);
         }
       }
+      return p;
+    }
+
+    private void rotate(Node p){
+
     }
     @Override
     public String toString() {
