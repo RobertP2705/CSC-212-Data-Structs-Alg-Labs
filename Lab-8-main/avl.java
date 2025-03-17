@@ -176,7 +176,6 @@ public class avl {
         }
         return node.value;
     }
-
     @Override
     public String toString() {
         return TreePrinter.getTreeDisplay(root);

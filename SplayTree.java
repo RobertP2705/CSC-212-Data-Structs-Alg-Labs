@@ -1,3 +1,4 @@
+
 public class SplayTree<T extends Comparable<T>>{
     public class Node implements PrintableNode{
         public T value;
@@ -17,7 +18,7 @@ public class SplayTree<T extends Comparable<T>>{
     
         @Override
         public String getText() {
-          return Integer.toString(this.value);
+          return this.value.toString();
         }
     }
     public Node root;
@@ -44,7 +45,7 @@ public class SplayTree<T extends Comparable<T>>{
         return node;
     }
     private Node findParent(Node p){
-      return findParent(this.root,p)
+      return findParent(this.root,p);
     }
     private Node findParent(Node parent, Node p){
       if (parent == null || parent == p) {
@@ -52,7 +53,7 @@ public class SplayTree<T extends Comparable<T>>{
       }
       Node left = null;
       if(parent.left == p){
-        return parent
+        return parent;
       }
       else if(parent.left != null){
         left = findParent(parent.left,p);
@@ -64,30 +65,105 @@ public class SplayTree<T extends Comparable<T>>{
         return findParent(parent.right,p);
       }
     }
-    // private void splay(Position<Entry<K,V>> p) {
-    //     while (!isRoot(p)) {
-    //         Position<Entry<K,V>> parent = parent(p);
-    //         Position<Entry<K,V>> grand = parent(parent);
-    //         if (grand == null)                                          // zig case
-    //             rotate(p);
-    //         else if ((parent == left(grand)) == (p == left(parent))) {  // zig-zig case
-    //             rotate(parent);      // move PARENT upward
-    //             rotate(p);           // then move p upward
-    //         } else {                                                    // zig-zag case
-    //             rotate(p);           // move p upward
-    //             rotate(p);           // move p upward again
-    //         }
-    //     }
-    // }
-  
-    private Node splay(Node p){
+    public T remove(T value){
+      Node p = remove(root,value);
+      if (this.root != p) splay(p); 
+      if(p!=null)return p.value;
+      else return null;
+    }
+    private boolean contains(Node node, T value) {
+        if (node == null) return false;
+        if (node.value == value) return true;
+        int com = value.compareTo(node.value);
+        if (com < 0) return contains(node.left, value);
+        else return contains(node.right, value);
+    }
+    private Node remove(Node node, T value){
+        if(node == null) return null;
+        if(!contains(root,value)){
+            return null;
+        }
+        int com = value.compareTo(node.value);
+        if(com < 0){
+            node.left = remove(node.left,value);
+        }
+        else if(com > 0){
+            node.right = remove(node.right,value);
+        }
+        else{
+            if(node.left == null){
+                return node.right;
+            }
+            else if(node.right == null){
+                return node.left;
+            }
+            else{
+                if(height(node.left) > height(node.right)){
+                    T successorValue = findMax(node.left);
+                    node.value = successorValue;
+                    node.left = remove(node.left,successorValue);
+                }
+                else{
+                    T successorValue = findMin(node.right);
+                    node.value = successorValue;
+                    node.right = remove(node.right,successorValue);
+                }
+            }
+        }
+        return node;
+    }
+    private int height(Node node) {
+      if (node == null) return -1;
+      return 1 + Math.max(height(node.left), height(node.right));
+    }
+    private T findMin(Node node){
+        while(node.left != null){
+            node = node.left;
+        }
+        return node.value;
+    }
+    private T findMax(Node node){
+        while(node.right != null){
+            node = node.right;
+        }
+        return node.value;
+    }
+    public T get(T value){
+        Node p = get(this.root,value);
+        if(p == null){
+          return null;
+        }
+        splay(p);
+        return p.value;
+    }
+    private Node get(Node node, T value) {
+      if (node == null) {
+          return null;
+      }
+      
+      int compareResult = value.compareTo(node.value);
+      
+      if (compareResult == 0) {
+          return node;
+      }
+      else if(compareResult < 0){
+          return get(node.left, value);
+      }
+      else{
+          return get(node.right, value);
+      }
+  }
+    private void splay(Node p){
+      if(p == null || p == this.root) return;
       while(p != this.root){
         Node parent = findParent(p);
+        if(parent ==null)break;
         Node grand = findParent(parent);
         if(grand == null){
           rotate(p);
         }
-        else if((parent == grand.left)){
+        else if((parent == grand.left && p == parent.left) || 
+        (parent == grand.right && p == parent.right)){
           rotate(parent);
           rotate(p);
         }
@@ -95,6 +171,34 @@ public class SplayTree<T extends Comparable<T>>{
           rotate(p);
           rotate(p);
         }
+      }
+    }
+    public void rotate(Node p){
+      if(p==null)return;
+      Node y = findParent(p);
+      if(y==null)return;
+      Node z = findParent(y);
+      if(z==null){
+        this.root=p;
+      }
+      else{
+        relink(z,p,y == z.left);
+      }
+      if(p==y.left){
+        relink(y,p.right,true);
+        relink(p,y,false);
+      }
+      else{
+        relink(y,p.left,false);
+        relink(p,y,true);
+      }
+    }
+    private void relink (Node parent, Node child, boolean makeLeftChild) {
+      if (makeLeftChild){
+        parent.left = child;
+      }
+      else{
+        parent.right = child;
       }
     }
     @Override
