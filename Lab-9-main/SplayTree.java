@@ -27,21 +27,23 @@ public class SplayTree<T extends Comparable<T>>{
         this.root = null;
     }
     public void insert(T value) {
-      Node addedNode = new Node(value);
-      this.root = insert(this.root, value, addedNode);
-      splay(addedNode);
+      this.root = insert(this.root, value);
+      Node nodeToSplay = get(root, value);
+      if (nodeToSplay != null) {
+          splay(nodeToSplay);
+      }
     }
-    private Node insert(Node node, T value, Node addedNode) {
+    private Node insert(Node node, T value) {
         if (node == null) {
-          return addedNode;
+          return new Node(value);
         }
     
         int cmp = value.compareTo(node.value);
     
         if (cmp < 0) {
-          node.left = insert(node.left, value, addedNode);
+          node.left = insert(node.left, value);
         } else {
-          node.right = insert(node.right, value, addedNode);
+          node.right = insert(node.right, value);
         }
         return node;
     }
@@ -67,23 +69,20 @@ public class SplayTree<T extends Comparable<T>>{
       }
     }
     public T remove(T value){
-      Node p = remove(root,value);
-      if (this.root != p) splay(p); 
-      if(p!=null)return p.value;
-      else return null;
-    }
-    private boolean contains(Node node, T value) {
-        if (node == null) return false;
-        if (node.value == value) return true;
-        int com = value.compareTo(node.value);
-        if (com < 0) return contains(node.left, value);
-        else return contains(node.right, value);
+        Node nodeToDelete = get(this.root, value);
+        if (nodeToDelete == null) {
+            return null; 
+        }
+        T deletedValue = nodeToDelete.value;
+        Node parent = findParent(nodeToDelete);
+        if (parent != null) {
+            splay(parent);
+        }
+        remove(this.root, value);
+        return deletedValue; 
     }
     private Node remove(Node node, T value){
         if(node == null) return null;
-        if(!contains(root,value)){
-            return null;
-        }
         int com = value.compareTo(node.value);
         if(com < 0){
             node.left = remove(node.left,value);
@@ -154,59 +153,84 @@ public class SplayTree<T extends Comparable<T>>{
           return get(node.right, value);
       }
   }
-    private void splay(Node p){
-      if(p == null || p == this.root) return;
-      while(p != this.root){
-        Node parent = findParent(p);
-        if(parent ==null)break;
-        Node grand = findParent(parent);
-        if(grand == null){
-          rotate(p);
-        }
-        else if((parent == grand.left && p == parent.left) || 
-        (parent == grand.right && p == parent.right)){
-          rotate(parent);
-          rotate(p);
-        }
-        else{
-          rotate(p);
-          rotate(p);
-        }
-      }
-      return p;
-    }
+  public void splay(Node p) {
+    if (root == null) return;
+    if (p == null) return;
+    root = splayNode(root, p.value);
+  }
 
-    private void rotate(Node p){
+  public Node splayNode(Node root, T value) {
+    if (root == null) return null;
+    
+    int cmp = value.compareTo(root.value);
+    
+    if (cmp == 0) return root;
+    
+    if (cmp < 0) {
+        if (root.left == null) return root;
+        
+        int leftCmp = value.compareTo(root.left.value);
+        
+        if (leftCmp < 0 && root.left.left != null) {
+            root.left.left = splayNode(root.left.left, value);
+            root = rotateRight(root);
+            if (root.left == null) return root;
+            return rotateRight(root);
+        }
+        else if (leftCmp > 0 && root.left.right != null) {
+            root.left.right = splayNode(root.left.right, value);
+            if (root.left.right != null) {
+                root.left = rotateLeft(root.left);
+            }
+            return rotateRight(root);
+        }
+        else {
+            return rotateRight(root);
+        }
+    }
+    else {
+        if (root.right == null) return root;
+        
+        int rightCmp = value.compareTo(root.right.value);
+        
+        if (rightCmp > 0 && root.right.right != null) {
+            root.right.right = splayNode(root.right.right, value);
+            root = rotateLeft(root);
+            if (root.right == null) return root;
+            return rotateLeft(root);
+        }
+        else if (rightCmp < 0 && root.right.left != null) {
+            root.right.left = splayNode(root.right.left, value);
+            if (root.right.left != null) {
+                root.right = rotateRight(root.right);
+            }
+            return rotateLeft(root);
+        }
+        else {
+            return rotateLeft(root);
+        }
+    }
+  }
+  private Node rotateRight(Node y) {
+    if (y == null || y.left == null) return y;
+    
+    Node x = y.left;
+    y.left = x.right;
+    x.right = y;
+    
+    return x; 
+  }
 
-    }
-    public void rotate(Node p){
-      if(p==null)return;
-      Node y = findParent(p);
-      if(y==null)return;
-      Node z = findParent(y);
-      if(z==null){
-        this.root=p;
-      }
-      else{
-        relink(z,p,y == z.left);
-      }
-      if(p==y.left){
-        relink(y,p.right,true);
-        relink(p,y,false);
-      }
-      else{
-        relink(y,p.left,false);
-        relink(p,y,true);
-      }
-    }
-    private void relink (Node parent, Node child, boolean makeLeftChild) {
-      if (makeLeftChild){
-        parent.left = child;
-      }
-      else{
-        parent.right = child;
-      }
-    }
+  private Node rotateLeft(Node x) {
+      if (x == null || x.right == null) return x;
+      
+      Node y = x.right;
+      x.right = y.left;
+      y.left = x;
+      
+      return y; 
+  }
+
     @Override
     public String toString() {
         return TreePrinter.getTreeDisplay(root);

@@ -27,4 +27,7 @@ public class TreeMap {
         }
         else return null;
     }
+    public void printTree(){
+        System.out.println(tree);
+    }
 }
