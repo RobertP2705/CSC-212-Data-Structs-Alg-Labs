@@ -2,7 +2,8 @@
 public class SplayTree<T extends Comparable<T>>{
     public class Node implements PrintableNode{
         public T value;
-        public Node left, right;
+        public Node left = null;
+        public Node right = null;
         public Node(T value) {
             this.value = value;
         }
@@ -172,6 +173,11 @@ public class SplayTree<T extends Comparable<T>>{
           rotate(p);
         }
       }
+      return p;
+    }
+
+    private void rotate(Node p){
+
     }
     public void rotate(Node p){
       if(p==null)return;
