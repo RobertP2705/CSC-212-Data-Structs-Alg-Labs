@@ -1,10 +1,10 @@
 
 
-public class Job {
+public class Job implements Comparable<Job>{
     private String name;
-    private int priority;
+    public Integer priority;
   
-    Job(String name, int priority) {
+    Job(String name, Integer priority) {
       this.name = name;
       this.priority = priority;
     }
@@ -20,4 +20,9 @@ public class Job {
     int getPriority() {
       return this.priority;
     }
-  }
+
+    @Override
+    public int compareTo(Job key2){
+      return this.priority.compareTo(key2.priority);
+    }
+}
