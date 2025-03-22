@@ -10,7 +10,9 @@ public final class MaxHeap<T extends Comparable<T>> {
             siftDown(i);
         }
     }
-    public MaxHeap() {}
+    public MaxHeap() {
+        heap = new ArrayList<>();
+    }
     public void siftDown(int i) {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -61,9 +63,9 @@ public final class MaxHeap<T extends Comparable<T>> {
         }
         T max = heap.get(0);
         T temp = heap.get(0);
-        heap.set(0, heap.get(-1));
-        heap.set(-1, temp);
-        heap.remove(-1);
+        heap.set(0, heap.get(heap.size()-1));
+        heap.set(heap.size()-1, temp);
+        heap.remove(heap.size()-1);
         siftDown(0);
         return max;
     }
