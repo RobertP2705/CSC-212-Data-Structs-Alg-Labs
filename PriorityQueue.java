@@ -3,7 +3,7 @@
 public class PriorityQueue <T extends Comparable<T>> {
     public MaxHeap<T> queue;
     public PriorityQueue(){
-        MaxHeap<T> queue = new MaxHeap<>();
+        queue = new MaxHeap<>();
     }
 
     public void enqueue(T elt){

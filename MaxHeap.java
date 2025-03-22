@@ -4,9 +4,9 @@ public final class MaxHeap<T extends Comparable<T>> {
     public ArrayList<T> heap;
     
     public MaxHeap(ArrayList<T> arr) {
-        this.heap = arr;
+        heap = arr;
 
-        for (int i = 0; i < this.heap.size(); i++) {
+        for (int i = 0; i < heap.size(); i++) {
             siftDown(i);
         }
     }
@@ -14,19 +14,19 @@ public final class MaxHeap<T extends Comparable<T>> {
     public void siftDown(int i) {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
-        while ((left < this.heap.size() && this.heap.get(i).compareTo(this.heap.get(left)) < 0) || 
-               (right < this.heap.size() && this.heap.get(i).compareTo(this.heap.get(right)) < 0)) {
+        while ((left < heap.size() && heap.get(i).compareTo(heap.get(left)) < 0) || 
+               (right < heap.size() && heap.get(i).compareTo(heap.get(right)) < 0)) {
             
-            int biggest = -1;
-            if (right >= this.heap.size() || this.heap.get(left).compareTo(this.heap.get(right)) > 0) {
+            int biggest;
+            if (right >= heap.size() || heap.get(left).compareTo(heap.get(right)) > 0) {
                 biggest = left;
             } else {
                 biggest = right;
             }
             
-            T temp = this.heap.get(i);
-            this.heap.set(i, this.heap.get(biggest));
-            this.heap.set(biggest, temp);
+            T temp = heap.get(i);
+            heap.set(i, heap.get(biggest));
+            heap.set(biggest, temp);
             
             i = biggest;
             left = 2 * i + 1;
@@ -36,10 +36,10 @@ public final class MaxHeap<T extends Comparable<T>> {
 
     public void siftUp(int i) {
         int parent = (i - 1) / 2;
-        while (i > 0 && this.heap.get(i).compareTo(this.heap.get(parent)) > 0) {
-            T temp = this.heap.get(i);
-            this.heap.set(i, this.heap.get(parent));
-            this.heap.set(parent, temp);
+        while (i > 0 && heap.get(i).compareTo(heap.get(parent)) > 0) {
+            T temp = heap.get(i);
+            heap.set(i, heap.get(parent));
+            heap.set(parent, temp);
             
             i = parent;
             parent = (i - 1) / 2;
@@ -47,30 +47,30 @@ public final class MaxHeap<T extends Comparable<T>> {
     }
 
     public void insert(T elt) {
-        this.heap.add(elt);
-        siftUp(this.heap.size() - 1);
+        heap.add(elt);
+        siftUp(heap.size() - 1);
     }
 
     public T getMax(){
-        return this.heap.get(0);
+        return heap.get(0);
     }
 
     public T extractMax(){
-        if(this.heap.isEmpty()){
+        if(heap.isEmpty()){
             return null;
         }
-        T max = this.heap.get(0);
-        T temp = this.heap.get(0);
-        this.heap.set(0, this.heap.get(-1));
-        this.heap.set(-1, temp);
-        this.heap.remove(-1);
+        T max = heap.get(0);
+        T temp = heap.get(0);
+        heap.set(0, heap.get(-1));
+        heap.set(-1, temp);
+        heap.remove(-1);
         siftDown(0);
         return max;
     }
 
     public void update_by_index(int i, T new2){
-        T old = this.heap.get(i);
-        this.heap.set(i, new2);
+        T old = heap.get(i);
+        heap.set(i, new2);
         if(new2.compareTo(old) > 0){
             siftUp(i);
         }
@@ -80,8 +80,8 @@ public final class MaxHeap<T extends Comparable<T>> {
     }
 
     public void update(T old2, T new2){
-        if(this.heap.contains(old2)){
-            this.update_by_index(this.heap.indexOf(old2), new2);
+        if(heap.contains(old2)){
+            update_by_index(heap.indexOf(old2), new2);
         }
     }
 }
