@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "reader",
+            "request": "launch",
+            "mainClass": "reader",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_3e1cf2cc"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",
