@@ -26,9 +26,9 @@ public class HuffmanEncodedString {
             HuffmanChar insertChar = new HuffmanChar(key.toString(),value);
             pq.enqueue(insertChar);
         }
-        MaxHeap<HuffmanChar> heap = pq.getHeap();
+        HashMap<Character,String> serialTable = pq.getSerialTable();
     }
-    public static String deserialize(String binary){
+    public static String deserialize(String binary, HashMap<Character,String> serialTable){
 
     }
     public static void main(String[] args) {
