@@ -21,9 +21,6 @@ public class PriorityQueue <T extends Comparable<T>> {
     public boolean is_empty(){
         return queue.heap.isEmpty();
     }
-    public String getSerialTable(){
-        return queue.getHeapTable();
-    }
     public void change_priority_by_index(int i, T new2){
         queue.update_by_index(i, new2);
     }

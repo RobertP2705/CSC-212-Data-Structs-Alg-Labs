@@ -86,8 +86,4 @@ public final class MaxHeap<T extends Comparable<T>> {
             update_by_index(heap.indexOf(old2), new2);
         }
     }
-
-    public String getHeapTable(){
-
-    }
 }
