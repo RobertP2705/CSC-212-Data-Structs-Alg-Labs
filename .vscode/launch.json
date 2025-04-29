@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DijkstraUnweighted",
+            "request": "launch",
+            "mainClass": "DijkstraUnweighted",
+            "projectName": "CSC-212-Data-Structs-Alg-Labs_56394639"
+        },
+        {
+            "type": "java",
             "name": "HuffmanEncodedString",
             "request": "launch",
             "mainClass": "HuffmanEncodedString",
