@@ -1,5 +1,5 @@
 import java.util.*;
-
+//inspo: https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
 public class DijkstraUnweighted {
     private List<List<Integer>> graph;
     private int vertices;
@@ -26,10 +26,10 @@ public class DijkstraUnweighted {
         
         while (!queue.isEmpty()) {
             int u = queue.poll();
-            
+            // bfs simplification for djikstra cuz unweighted
             for (int v : graph.get(u)) {
-                if (dist[v] > dist[u] + 1) {
-                    dist[v] = dist[u] + 1;
+                if (dist[v] == Integer.MAX_VALUE) { //only get unprocessed nodes that are one away
+                    dist[v] = dist[u] + 1; 
                     queue.add(v);
                 }
             }
@@ -50,10 +50,9 @@ public class DijkstraUnweighted {
         int source = 0;
         int[] distances = g.shortestPath(source);
         
-        System.out.println("Shortest distances from vertex " + source + ":");
+        System.out.println("distances from vertex " + source + ":");
         for (int i = 0; i < distances.length; i++) {
-            System.out.println("To vertex " + i + ": " + 
-                              (distances[i] == Integer.MAX_VALUE ? "Infinity" : distances[i]));
+            System.out.println("to vertex " + i + ": " +(distances[i] == Integer.MAX_VALUE ? "Infinity" : distances[i]));
         }
     }
 }
